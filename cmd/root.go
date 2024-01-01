@@ -9,7 +9,7 @@ import (
 
 // rootCmd represents the base command when called without any subcommands
 var rootCmd = &cobra.Command{
-	Use:   "TerraGCP",
+	Use:   "terragcp-cli",
 	Short: "CLI tool for managing Terraform configurations in GCP",
 	Long: `TerraGCP is a Command Line Interface tool designed to facilitate the management,
 analysis, and modification of Terraform configurations specifically for Google Cloud Platform.
