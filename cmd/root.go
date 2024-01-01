@@ -10,9 +10,12 @@ import (
 // rootCmd represents the base command when called without any subcommands
 var rootCmd = &cobra.Command{
 	Use:   "TerraGCP",
-	Short: "TerraGCP is a CLI tool for managing Terraform configurations in GCP",
+	Short: "CLI tool for managing Terraform configurations in GCP",
 	Long: `TerraGCP is a Command Line Interface tool designed to facilitate the management,
-           analysis, and modification of Terraform configurations specifically for Google Cloud Platform.`,
+analysis, and modification of Terraform configurations specifically for Google Cloud Platform.
+For example:
+
+This application can analyze, explain, and suggest fixes for your Terraform GCP configurations.`,
 	// Uncomment the following line if your bare application
 	// has an action associated with it:
 	// Run: func(cmd *cobra.Command, args []string) { },
@@ -28,13 +31,14 @@ func Execute() {
 }
 
 func init() {
-	// Here you can define flags and configuration settings.
+	// Here you can define your flags and configuration settings.
 	// Cobra supports persistent flags, which, if defined here,
 	// will be global for your application.
 
-	// rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.TerraGCP.yaml)")
+	// Example of a global flag
+	// rootCmd.PersistentFlags().StringVarP(&someConfigVar, "config", "c", "", "config file (default is $HOME/.TerraGCP.yaml)")
 
 	// Cobra also supports local flags, which will only run
 	// when this action is called directly.
-	// rootCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
+	rootCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
 }
