@@ -1,2 +1,0 @@
-# terragcp
-terraform gcp cli
