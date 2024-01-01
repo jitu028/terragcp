@@ -9,39 +9,6 @@ import (
 	"os"
 )
 
-const gptAPIURL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent"
-
-type RequestBody struct {
-	Contents []struct {
-		Parts []struct {
-			Text string `json:"text"`
-		} `json:"Parts"`
-	} `json:"contents"`
-}
-
-type ResponseBody struct {
-	Candidates []struct {
-		Content struct {
-			Parts []struct {
-				Text string `json:"text"`
-			} `json:"parts"`
-			Role string `json:"role"`
-		} `json:"content"`
-		FinishReason  string `json:"finishReason"`
-		Index         int    `json:"index"`
-		SafetyRatings []struct {
-			Category    string `json:"category"`
-			Probability string `json:"probability"`
-		} `json:"safetyRatings"`
-	} `json:"candidates"`
-	PromptFeedback struct {
-		SafetyRatings []struct {
-			Category    string `json:"category"`
-			Probability string `json:"probability"`
-		} `json:"safetyRatings"`
-	} `json:"promptFeedback"`
-}
-
 // ApplyFixes suggests fixes for the given Terraform file using Gemini Pro API.
 func ApplyFixes(filePath string) ([]string, error) {
 	// Read the Terraform file
@@ -64,7 +31,7 @@ func ApplyFixes(filePath string) ([]string, error) {
 func callGeminiProAPI(inputText string) (string, error) {
 	apiKey := os.Getenv("GEMINI_API_KEY")
 	if apiKey == "" {
-		return "", fmt.Errorf("Gemini API key not set")
+		return "", fmt.Errorf("gemini api key not set")
 	}
 
 	// Prepare the request body
@@ -93,7 +60,8 @@ func callGeminiProAPI(inputText string) (string, error) {
 	}
 
 	// Make the API request
-	resp, err := http.Post(fmt.Sprintf(gptAPIURL, apiKey), "application/json", bytes.NewBuffer(requestBodyBytes))
+	resp, err := http.Post(gptAPIURL, "application/json", bytes.NewBuffer(requestBodyBytes))
+
 	if err != nil {
 		return "", fmt.Errorf("failed to make API request: %v", err)
 	}
